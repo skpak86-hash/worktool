@@ -16,7 +16,7 @@
     --accent-hover: #1d4ed8;
     --danger: #dc3545;
     --danger-hover: #c82333;
-    --shadow: 0 2px 8px rgba(0,0,0,0.08);
+    --shadow: 0 1px 4px rgba(0,0,0,0.07);
     --shadow-hover: 0 6px 20px rgba(37,99,235,0.18);
     --group-header: #e8f0fe;
     --group-border: #c5d5fb;
@@ -33,7 +33,7 @@
     --text2: #8892b0;
     --accent: #4f8ef7;
     --accent-hover: #2563eb;
-    --shadow: 0 2px 8px rgba(0,0,0,0.4);
+    --shadow: 0 1px 4px rgba(0,0,0,0.35);
     --shadow-hover: 0 6px 20px rgba(79,142,247,0.25);
     --group-header: #1e2340;
     --group-border: #2e3a6e;
@@ -51,13 +51,14 @@
     transition: background 0.3s, color 0.3s;
   }
 
-  /* HEADER */
+  /* HEADER — compact, centered */
   header {
     background: var(--surface);
     border-bottom: 1px solid var(--border);
-    padding: 0.9rem 1.5rem;
+    padding: 0.32rem 1.2rem;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 1rem;
     position: sticky;
     top: 0;
@@ -67,36 +68,42 @@
   .logo {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 1.25rem;
+    gap: 0.3rem;
+    font-size: 0.88rem;
     font-weight: 700;
     color: var(--text);
     flex-shrink: 0;
   }
-  .logo-icon { font-size: 1.4rem; }
+  .logo-icon { font-size: 0.95rem; }
   .logo-sub {
-    font-size: 0.72rem;
+    font-size: 0.62rem;
     font-weight: 400;
     color: var(--text2);
-    margin-left: 0.2rem;
+    margin-left: 0.1rem;
+  }
+  .header-sep {
+    width: 1px;
+    height: 16px;
+    background: var(--border);
+    flex-shrink: 0;
   }
   .header-actions {
-    margin-left: auto;
     display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
+    gap: 0.28rem;
+    align-items: center;
   }
   .btn {
-    padding: 0.42rem 1rem;
-    border-radius: 6px;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
     border: 1px solid var(--border);
     background: var(--surface2);
     color: var(--text);
-    font-size: 0.82rem;
+    font-size: 0.73rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.18s;
     white-space: nowrap;
+    line-height: 1.4;
   }
   .btn:hover { background: var(--border); }
   .btn-primary {
@@ -113,72 +120,72 @@
   .add-panel {
     background: var(--surface);
     border-bottom: 1px solid var(--border);
-    padding: 0.9rem 1.5rem;
+    padding: 0.7rem 1.2rem;
   }
   .add-row {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.45rem;
     flex-wrap: wrap;
     align-items: center;
   }
-  .add-row input, .add-row select {
+  .add-row input {
     border: 1px solid var(--border);
     background: var(--input-bg);
     color: var(--text);
-    border-radius: 6px;
-    padding: 0.45rem 0.8rem;
-    font-size: 0.85rem;
+    border-radius: 5px;
+    padding: 0.38rem 0.75rem;
+    font-size: 0.82rem;
     outline: none;
     transition: border-color 0.18s;
   }
-  .add-row input:focus, .add-row select:focus { border-color: var(--accent); }
-  .input-group { flex: 1; min-width: 100px; }
-  .input-url { flex: 2.5; min-width: 180px; }
+  .add-row input:focus { border-color: var(--accent); }
+  .input-group { flex: 1; min-width: 90px; }
+  .input-url { flex: 2.5; min-width: 160px; }
   .add-hint {
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     color: var(--text2);
-    margin-top: 0.45rem;
+    margin-top: 0.35rem;
   }
   .add-hint kbd {
     background: var(--border);
     border-radius: 3px;
-    padding: 0.1rem 0.3rem;
-    font-size: 0.68rem;
+    padding: 0.05rem 0.28rem;
+    font-size: 0.65rem;
     font-family: monospace;
   }
 
   /* MAIN CONTENT */
-  main { padding: 1.5rem; }
+  main { padding: 1.2rem; }
 
   /* GROUP */
   .group-block {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.2rem;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 10px;
+    border-radius: 8px;
     overflow: hidden;
     box-shadow: var(--shadow);
   }
   .group-header {
     background: var(--group-header);
     border-bottom: 1px solid var(--group-border);
-    padding: 0.6rem 1rem;
+    padding: 0.45rem 0.9rem;
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.5rem;
     cursor: grab;
     user-select: none;
   }
   .group-header:active { cursor: grabbing; }
   .drag-handle {
     color: var(--text2);
-    font-size: 1rem;
+    font-size: 0.95rem;
     cursor: grab;
     padding: 0 2px;
-    opacity: 0.5;
+    opacity: 0.45;
   }
   .group-name {
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -186,21 +193,21 @@
     flex: 1;
   }
   .group-count {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     color: var(--text2);
     background: var(--border);
     border-radius: 10px;
-    padding: 0.1rem 0.5rem;
+    padding: 0.08rem 0.45rem;
   }
   .group-del-btn {
     background: none;
     border: none;
     color: var(--text2);
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 0.82rem;
     padding: 0.1rem 0.3rem;
     border-radius: 4px;
-    opacity: 0.5;
+    opacity: 0.45;
     transition: all 0.15s;
   }
   .group-del-btn:hover { opacity: 1; color: var(--danger); }
@@ -209,26 +216,26 @@
   .tools-grid {
     display: flex;
     flex-wrap: wrap;
-    padding: 0.8rem;
-    gap: 0.6rem;
+    padding: 0.7rem;
+    gap: 0.5rem;
   }
 
   /* TOOL CARD */
   .tool-card {
     position: relative;
-    width: 82px;
+    width: 78px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0.65rem 0.4rem 0.55rem;
-    border-radius: 8px;
+    padding: 0.6rem 0.35rem 0.5rem;
+    border-radius: 7px;
     border: 1px solid var(--border);
     background: var(--card-bg);
     cursor: pointer;
     transition: all 0.18s;
     text-decoration: none;
     color: var(--text);
-    gap: 0.4rem;
+    gap: 0.35rem;
   }
   .tool-card:hover {
     background: var(--card-hover);
@@ -237,15 +244,14 @@
     transform: translateY(-2px);
   }
   .tool-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    object-fit: contain;
+    width: 34px;
+    height: 34px;
+    border-radius: 7px;
     background: var(--surface2);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     overflow: hidden;
     flex-shrink: 0;
   }
@@ -253,10 +259,10 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
-    border-radius: 6px;
+    border-radius: 5px;
   }
   .tool-name {
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     font-weight: 500;
     text-align: center;
     line-height: 1.3;
@@ -268,13 +274,13 @@
     position: absolute;
     top: -6px;
     right: -6px;
-    width: 18px;
-    height: 18px;
+    width: 17px;
+    height: 17px;
     border-radius: 50%;
     background: var(--danger);
     color: #fff;
     border: none;
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     cursor: pointer;
     display: none;
     align-items: center;
@@ -292,9 +298,9 @@
     padding: 4rem 2rem;
     color: var(--text2);
   }
-  .empty-state .empty-icon { font-size: 3rem; margin-bottom: 1rem; }
-  .empty-state h3 { font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--text); }
-  .empty-state p { font-size: 0.85rem; line-height: 1.6; }
+  .empty-state .empty-icon { font-size: 2.8rem; margin-bottom: 1rem; }
+  .empty-state h3 { font-size: 1rem; margin-bottom: 0.5rem; color: var(--text); }
+  .empty-state p { font-size: 0.82rem; line-height: 1.6; }
 
   /* DRAG OVER */
   .group-block.drag-over { border-color: var(--accent); opacity: 0.7; }
@@ -303,17 +309,17 @@
   /* TOAST */
   .toast {
     position: fixed;
-    bottom: 1.5rem;
-    right: 1.5rem;
+    bottom: 1.2rem;
+    right: 1.2rem;
     background: #222;
     color: #fff;
-    padding: 0.6rem 1.2rem;
-    border-radius: 8px;
-    font-size: 0.82rem;
+    padding: 0.5rem 1rem;
+    border-radius: 7px;
+    font-size: 0.78rem;
     z-index: 9999;
     opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.25s;
+    transform: translateY(8px);
+    transition: all 0.22s;
     pointer-events: none;
   }
   .toast.show { opacity: 1; transform: translateY(0); }
@@ -331,22 +337,21 @@
   .modal-overlay.show { display: flex; }
   .modal {
     background: var(--surface);
-    border-radius: 12px;
-    padding: 1.5rem;
-    width: 340px;
+    border-radius: 10px;
+    padding: 1.4rem;
+    width: 320px;
     box-shadow: 0 20px 60px rgba(0,0,0,0.3);
   }
-  .modal h3 { margin-bottom: 1rem; font-size: 1rem; }
-  .modal p { font-size: 0.85rem; color: var(--text2); margin-bottom: 1.2rem; line-height: 1.6; }
-  .modal-btns { display: flex; gap: 0.5rem; justify-content: flex-end; }
+  .modal h3 { margin-bottom: 0.8rem; font-size: 0.95rem; }
+  .modal p { font-size: 0.82rem; color: var(--text2); margin-bottom: 1.1rem; line-height: 1.6; }
+  .modal-btns { display: flex; gap: 0.4rem; justify-content: flex-end; }
 
   /* RESPONSIVE */
   @media (max-width: 600px) {
-    header { padding: 0.7rem 1rem; }
-    .logo-sub { display: none; }
-    .add-panel { padding: 0.7rem 1rem; }
-    main { padding: 1rem; }
-    .btn { padding: 0.38rem 0.7rem; font-size: 0.78rem; }
+    header { gap: 0.6rem; padding: 0.3rem 0.8rem; flex-wrap: wrap; justify-content: center; }
+    .header-sep { display: none; }
+    .add-panel { padding: 0.6rem 0.8rem; }
+    main { padding: 0.8rem; }
   }
 </style>
 </head>
@@ -358,6 +363,7 @@
     Work Hub
     <span class="logo-sub">v1.0</span>
   </div>
+  <div class="header-sep"></div>
   <div class="header-actions">
     <button class="btn" onclick="exportData()">⬇ Export</button>
     <button class="btn" onclick="triggerImport()">⬆ Import</button>
@@ -374,7 +380,7 @@
     <input class="input-url" id="inUrl" type="url" placeholder="URL (https://...)" autocomplete="off">
     <button class="btn btn-primary" onclick="addTool()">+ Add Tool</button>
   </div>
-  <div class="add-hint">Press <kbd>Enter</kbd> in any field to add · Click card icon to open · Hover card to delete</div>
+  <div class="add-hint">Press <kbd>Enter</kbd> in any field to add · Click card to open · Hover card to delete</div>
 </div>
 
 <main id="main"></main>
@@ -387,7 +393,7 @@
     <p id="modalMsg"></p>
     <div class="modal-btns">
       <button class="btn" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-primary" id="modalOk" onclick="">OK</button>
+      <button class="btn btn-primary" id="modalOk">OK</button>
     </div>
   </div>
 </div>
@@ -395,21 +401,15 @@
 <input type="file" id="fileInput" accept=".json" style="display:none" onchange="importData(event)">
 
 <script>
-// ── State ──────────────────────────────────────────────────────────────────
-let data = { groups: [] }; // [{ name, tools: [{id, name, url, icon}] }]
+let data = { groups: [] };
 let dragSrc = null;
 
-// ── Init ───────────────────────────────────────────────────────────────────
 (function init() {
   const saved = localStorage.getItem('workhub_v1');
-  if (saved) {
-    try { data = JSON.parse(saved); } catch(e) {}
-  }
+  if (saved) { try { data = JSON.parse(saved); } catch(e) {} }
   const theme = localStorage.getItem('workhub_theme') || 'light';
   setTheme(theme);
   render();
-
-  // Enter key on inputs
   ['inGroup','inName','inUrl'].forEach(id => {
     document.getElementById(id).addEventListener('keydown', e => {
       if (e.key === 'Enter') addTool();
@@ -417,39 +417,28 @@ let dragSrc = null;
   });
 })();
 
-// ── Save ───────────────────────────────────────────────────────────────────
 function save() {
   localStorage.setItem('workhub_v1', JSON.stringify(data));
 }
 
-// ── Add Tool ───────────────────────────────────────────────────────────────
 function addTool() {
   const group = document.getElementById('inGroup').value.trim();
   const name  = document.getElementById('inName').value.trim();
   let   url   = document.getElementById('inUrl').value.trim();
-
   if (!group || !name || !url) { toast('Please fill in Group, Name, and URL'); return; }
   if (!url.startsWith('http')) url = 'https://' + url;
-
   const icon = getFaviconUrl(url);
   const tool = { id: Date.now() + Math.random(), name, url, icon };
-
   let grp = data.groups.find(g => g.name.toLowerCase() === group.toLowerCase());
-  if (!grp) {
-    grp = { name: group, tools: [] };
-    data.groups.push(grp);
-  }
+  if (!grp) { grp = { name: group, tools: [] }; data.groups.push(grp); }
   grp.tools.push(tool);
-  save();
-  render();
-
+  save(); render();
   document.getElementById('inName').value = '';
   document.getElementById('inUrl').value = '';
   document.getElementById('inName').focus();
   toast(`"${name}" added to ${grp.name}`);
 }
 
-// ── Favicon ─────────────────────────────────────────────────────────────────
 function getFaviconUrl(url) {
   try {
     const domain = new URL(url).hostname;
@@ -457,44 +446,30 @@ function getFaviconUrl(url) {
   } catch { return ''; }
 }
 
-function getDomainEmoji(url) {
-  try {
-    const h = new URL(url).hostname.replace('www.','');
-    return h.charAt(0).toUpperCase();
-  } catch { return '?'; }
+function getDomainChar(url) {
+  try { return new URL(url).hostname.replace('www.','').charAt(0).toUpperCase(); }
+  catch { return '?'; }
 }
 
-// ── Delete ─────────────────────────────────────────────────────────────────
 function deleteTool(groupName, toolId, e) {
-  e.preventDefault();
-  e.stopPropagation();
+  e.preventDefault(); e.stopPropagation();
   const grp = data.groups.find(g => g.name === groupName);
   if (!grp) return;
   grp.tools = grp.tools.filter(t => t.id !== toolId);
   if (grp.tools.length === 0) data.groups = data.groups.filter(g => g.name !== groupName);
-  save();
-  render();
+  save(); render();
 }
 
 function deleteGroup(groupName) {
-  showModal(
-    'Delete Group',
-    `Delete the entire "${groupName}" group and all its tools?`,
-    () => {
-      data.groups = data.groups.filter(g => g.name !== groupName);
-      save();
-      render();
-      closeModal();
-      toast(`Group "${groupName}" deleted`);
-    }
-  );
+  showModal('Delete Group', `Delete "${groupName}" and all its tools?`, () => {
+    data.groups = data.groups.filter(g => g.name !== groupName);
+    save(); render(); closeModal();
+    toast(`Group "${groupName}" deleted`);
+  });
 }
 
-// ── Render ─────────────────────────────────────────────────────────────────
 function render() {
   const main = document.getElementById('main');
-
-  // Update group datalist
   const dl = document.getElementById('groupList');
   dl.innerHTML = data.groups.map(g => `<option value="${escHtml(g.name)}">`).join('');
 
@@ -503,7 +478,7 @@ function render() {
       <div class="empty-state">
         <div class="empty-icon">🔗</div>
         <h3>No tools yet</h3>
-        <p>Enter a Group name, Tool name, and URL above<br>then click <strong>+ Add Tool</strong> to get started.</p>
+        <p>Enter a Group, Name, and URL above<br>then click <strong>+ Add Tool</strong> to get started.</p>
       </div>`;
     return;
   }
@@ -527,9 +502,8 @@ function render() {
             <button class="tool-card-del" onclick="deleteTool('${escAttr(grp.name)}',${t.id},event)" title="Remove">✕</button>
             <div class="tool-icon">
               ${t.icon
-                ? `<img src="${escAttr(t.icon)}" alt="" onerror="this.parentNode.innerHTML='<span>${getDomainEmoji(t.url)}</span>'">`
-                : `<span>${getDomainEmoji(t.url)}</span>`
-              }
+                ? `<img src="${escAttr(t.icon)}" alt="" onerror="this.parentNode.innerHTML='<span>${getDomainChar(t.url)}</span>'">`
+                : `<span>${getDomainChar(t.url)}</span>`}
             </div>
             <div class="tool-name">${escHtml(t.name)}</div>
           </a>
@@ -539,7 +513,6 @@ function render() {
   `).join('');
 }
 
-// ── Drag & Drop (reorder groups) ───────────────────────────────────────────
 function onDragStart(e, gi) {
   dragSrc = gi;
   e.currentTarget.classList.add('dragging');
@@ -550,38 +523,29 @@ function onDragOver(e, gi) {
   e.dataTransfer.dropEffect = 'move';
   if (gi !== dragSrc) e.currentTarget.classList.add('drag-over');
 }
-function onDragLeave(e, gi) {
-  e.currentTarget.classList.remove('drag-over');
-}
+function onDragLeave(e) { e.currentTarget.classList.remove('drag-over'); }
 function onDrop(e, gi) {
   e.preventDefault();
   e.currentTarget.classList.remove('drag-over');
   if (dragSrc === null || dragSrc === gi) return;
   const moved = data.groups.splice(dragSrc, 1)[0];
   data.groups.splice(gi, 0, moved);
-  dragSrc = null;
-  save();
-  render();
+  dragSrc = null; save(); render();
 }
-function onDragEnd(e) {
-  document.querySelectorAll('.group-block').forEach(el => {
-    el.classList.remove('dragging','drag-over');
-  });
+function onDragEnd() {
+  document.querySelectorAll('.group-block').forEach(el => el.classList.remove('dragging','drag-over'));
   dragSrc = null;
 }
 
-// ── Theme ──────────────────────────────────────────────────────────────────
 function setTheme(t) {
   document.documentElement.setAttribute('data-theme', t);
   localStorage.setItem('workhub_theme', t);
   document.getElementById('themeBtn').textContent = t === 'dark' ? '☀️ Light' : '🌙 Dark';
 }
 function toggleTheme() {
-  const cur = document.documentElement.getAttribute('data-theme');
-  setTheme(cur === 'dark' ? 'light' : 'dark');
+  setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
 }
 
-// ── Export / Import ────────────────────────────────────────────────────────
 function exportData() {
   const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
   const a = document.createElement('a');
@@ -590,9 +554,7 @@ function exportData() {
   a.click();
   toast('Exported workhub-backup.json');
 }
-function triggerImport() {
-  document.getElementById('fileInput').click();
-}
+function triggerImport() { document.getElementById('fileInput').click(); }
 function importData(e) {
   const file = e.target.files[0];
   if (!file) return;
@@ -600,56 +562,33 @@ function importData(e) {
   reader.onload = ev => {
     try {
       const imported = JSON.parse(ev.target.result);
-      if (!imported.groups) throw new Error('Invalid format');
-      showModal(
-        'Import Data',
-        `Import ${imported.groups.length} group(s)? This will REPLACE all current data.`,
-        () => {
-          data = imported;
-          save();
-          render();
-          closeModal();
-          toast('Import successful');
-        }
-      );
-    } catch(err) {
-      toast('Import failed: invalid file');
-    }
+      if (!imported.groups) throw new Error();
+      showModal('Import Data', `Import ${imported.groups.length} group(s)? This will replace all current data.`, () => {
+        data = imported; save(); render(); closeModal(); toast('Import successful');
+      });
+    } catch { toast('Import failed: invalid file'); }
   };
   reader.readAsText(file);
   e.target.value = '';
 }
 
-// ── Reset ──────────────────────────────────────────────────────────────────
 function confirmReset() {
-  showModal(
-    'Reset All Data',
-    'This will delete ALL groups and tools. This cannot be undone.',
-    () => {
-      data = { groups: [] };
-      save();
-      render();
-      closeModal();
-      toast('All data cleared');
-    }
-  );
+  showModal('Reset All Data', 'Delete ALL groups and tools? This cannot be undone.', () => {
+    data = { groups: [] }; save(); render(); closeModal(); toast('All data cleared');
+  });
 }
 
-// ── Modal ──────────────────────────────────────────────────────────────────
 function showModal(title, msg, onOk) {
   document.getElementById('modalTitle').textContent = title;
   document.getElementById('modalMsg').textContent = msg;
   document.getElementById('modalOk').onclick = onOk;
   document.getElementById('modalOverlay').classList.add('show');
 }
-function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('show');
-}
+function closeModal() { document.getElementById('modalOverlay').classList.remove('show'); }
 document.getElementById('modalOverlay').addEventListener('click', e => {
   if (e.target === e.currentTarget) closeModal();
 });
 
-// ── Toast ──────────────────────────────────────────────────────────────────
 let toastTimer;
 function toast(msg) {
   const el = document.getElementById('toast');
@@ -659,7 +598,6 @@ function toast(msg) {
   toastTimer = setTimeout(() => el.classList.remove('show'), 2400);
 }
 
-// ── Escape helpers ─────────────────────────────────────────────────────────
 function escHtml(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
