@@ -17,7 +17,7 @@
     --danger: #dc3545;
     --danger-hover: #c82333;
     --shadow: 0 1px 3px rgba(0,0,0,0.06);
-    --shadow-hover: 0 4px 14px rgba(37,99,235,0.16);
+    --shadow-card: 0 4px 14px rgba(37,99,235,0.16);
     --group-header: #e8f0fe;
     --group-border: #c5d5fb;
     --input-bg: #ffffff;
@@ -34,7 +34,7 @@
     --accent: #4f8ef7;
     --accent-hover: #2563eb;
     --shadow: 0 1px 3px rgba(0,0,0,0.3);
-    --shadow-hover: 0 4px 14px rgba(79,142,247,0.22);
+    --shadow-card: 0 4px 14px rgba(79,142,247,0.22);
     --group-header: #1e2340;
     --group-border: #2e3a6e;
     --input-bg: #1a1d27;
@@ -75,19 +75,10 @@
     flex-shrink: 0;
   }
   .logo-icon { font-size: 0.95rem; }
-  .logo-sub {
-    font-size: 0.62rem;
-    font-weight: 400;
-    color: var(--text2);
-    margin-left: 0.1rem;
-  }
-  .header-sep {
-    width: 1px;
-    height: 14px;
-    background: var(--border);
-    flex-shrink: 0;
-  }
+  .logo-sub { font-size: 0.62rem; font-weight: 400; color: var(--text2); margin-left: 0.1rem; }
+  .header-sep { width: 1px; height: 14px; background: var(--border); flex-shrink: 0; }
   .header-actions { display: flex; gap: 0.28rem; align-items: center; }
+
   .btn {
     padding: 0.25rem 0.6rem;
     border-radius: 4px;
@@ -108,18 +99,13 @@
   .btn-danger:hover { background: #fff0f0; border-color: var(--danger); }
   [data-theme="dark"] .btn-danger:hover { background: #2a1515; }
 
-  /* ADD TOOL PANEL */
+  /* ADD PANEL */
   .add-panel {
     background: var(--surface);
     border-bottom: 1px solid var(--border);
     padding: 0.55rem 1.2rem;
   }
-  .add-row {
-    display: flex;
-    gap: 0.4rem;
-    flex-wrap: wrap;
-    align-items: center;
-  }
+  .add-row { display: flex; gap: 0.4rem; flex-wrap: wrap; align-items: center; }
   .add-row input {
     border: 1px solid var(--border);
     background: var(--input-bg);
@@ -135,25 +121,34 @@
   .input-url { flex: 2.5; min-width: 140px; }
   .add-hint { font-size: 0.65rem; color: var(--text2); margin-top: 0.28rem; }
   .add-hint kbd {
-    background: var(--border);
-    border-radius: 2px;
-    padding: 0.04rem 0.24rem;
-    font-size: 0.62rem;
-    font-family: monospace;
+    background: var(--border); border-radius: 2px;
+    padding: 0.04rem 0.24rem; font-size: 0.62rem; font-family: monospace;
   }
 
   /* MAIN */
   main { padding: 0.8rem 1rem; }
 
-  /* GROUP BLOCK */
+  /* GROUP BLOCK — inline-block so it shrinks to fit content */
+  .groups-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
   .group-block {
-    margin-bottom: 0.6rem;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 6px;
     overflow: hidden;
     box-shadow: var(--shadow);
+    display: inline-flex;          /* shrinks to fit content width */
+    flex-direction: column;
+    min-width: 160px;
+    width: 100%;                   /* but fills row */
+    transition: border-color 0.18s;
   }
+  .group-block.drop-target { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(37,99,235,0.25); }
+  .group-block.dragging-group { opacity: 0.4; }
+
   .group-header {
     background: var(--group-header);
     border-bottom: 1px solid var(--group-border);
@@ -161,45 +156,56 @@
     display: flex;
     align-items: center;
     gap: 0.45rem;
-    cursor: grab;
     user-select: none;
   }
-  .group-header:active { cursor: grabbing; }
-  .drag-handle { color: var(--text2); font-size: 0.85rem; opacity: 0.4; }
+  .drag-handle {
+    color: var(--text2);
+    font-size: 0.85rem;
+    opacity: 0.4;
+    cursor: grab;
+    padding: 0 2px;
+  }
+  .drag-handle:active { cursor: grabbing; }
   .group-name {
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    color: var(--accent);
-    flex: 1;
+    font-size: 0.68rem; font-weight: 700;
+    letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--accent); flex: 1;
   }
   .group-count {
-    font-size: 0.6rem;
-    color: var(--text2);
-    background: var(--border);
-    border-radius: 8px;
-    padding: 0.05rem 0.38rem;
+    font-size: 0.6rem; color: var(--text2);
+    background: var(--border); border-radius: 8px; padding: 0.05rem 0.38rem;
   }
   .group-del-btn {
-    background: none;
-    border: none;
-    color: var(--text2);
-    cursor: pointer;
-    font-size: 0.75rem;
-    padding: 0.05rem 0.25rem;
-    border-radius: 3px;
-    opacity: 0.4;
-    transition: all 0.15s;
+    background: none; border: none; color: var(--text2);
+    cursor: pointer; font-size: 0.75rem;
+    padding: 0.05rem 0.25rem; border-radius: 3px;
+    opacity: 0.4; transition: all 0.15s;
   }
   .group-del-btn:hover { opacity: 1; color: var(--danger); }
 
-  /* TOOLS GRID */
+  /* TOOLS GRID — wraps to fit items, no fixed height */
   .tools-grid {
     display: flex;
     flex-wrap: wrap;
     padding: 0.45rem 0.5rem;
     gap: 0.38rem;
+    min-height: 52px;          /* shows drop zone even when empty */
+    align-content: flex-start;
+    transition: background 0.15s;
+  }
+  .tools-grid.grid-drop-over {
+    background: rgba(37,99,235,0.05);
+    border-radius: 0 0 5px 5px;
+  }
+
+  /* DROP PLACEHOLDER — shows where card will land */
+  .drop-placeholder {
+    width: 60px;
+    height: 72px;
+    border: 2px dashed var(--accent);
+    border-radius: 6px;
+    opacity: 0.4;
+    flex-shrink: 0;
   }
 
   /* TOOL CARD */
@@ -213,94 +219,60 @@
     border-radius: 6px;
     border: 1px solid var(--border);
     background: var(--card-bg);
-    cursor: pointer;
+    cursor: grab;
     transition: all 0.16s;
     text-decoration: none;
     color: var(--text);
     gap: 0.25rem;
+    flex-shrink: 0;
   }
   .tool-card:hover {
     background: var(--card-hover);
     border-color: var(--accent);
-    box-shadow: var(--shadow-hover);
+    box-shadow: var(--shadow-card);
     transform: translateY(-2px);
   }
+  .tool-card.card-dragging { opacity: 0.35; cursor: grabbing; }
   .tool-icon {
-    width: 26px;
-    height: 26px;
+    width: 26px; height: 26px;
     border-radius: 5px;
     background: var(--surface2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     font-size: 0.95rem;
-    overflow: hidden;
-    flex-shrink: 0;
+    overflow: hidden; flex-shrink: 0;
   }
-  .tool-icon img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    border-radius: 4px;
-  }
+  .tool-icon img { width: 100%; height: 100%; object-fit: contain; border-radius: 4px; }
   .tool-name {
-    font-size: 0.58rem;
-    font-weight: 500;
-    text-align: center;
-    line-height: 1.25;
-    word-break: break-word;
-    color: var(--text);
-    max-width: 100%;
+    font-size: 0.58rem; font-weight: 500;
+    text-align: center; line-height: 1.25;
+    word-break: break-word; color: var(--text); max-width: 100%;
   }
   .tool-card-del {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background: var(--danger);
-    color: #fff;
-    border: none;
-    font-size: 0.55rem;
-    cursor: pointer;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.25);
-    z-index: 10;
+    position: absolute; top: -5px; right: -5px;
+    width: 15px; height: 15px;
+    border-radius: 50%; background: var(--danger);
+    color: #fff; border: none; font-size: 0.55rem;
+    cursor: pointer; display: none;
+    align-items: center; justify-content: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.25); z-index: 10;
   }
   .tool-card:hover .tool-card-del { display: flex; }
   .tool-card-del:hover { background: var(--danger-hover); }
 
-  /* EMPTY */
-  .empty-state {
-    text-align: center;
-    padding: 3.5rem 2rem;
-    color: var(--text2);
-  }
+  /* EMPTY STATE */
+  .empty-state { text-align: center; padding: 3.5rem 2rem; color: var(--text2); }
   .empty-state .empty-icon { font-size: 2.4rem; margin-bottom: 0.8rem; }
   .empty-state h3 { font-size: 0.95rem; margin-bottom: 0.4rem; color: var(--text); }
   .empty-state p { font-size: 0.8rem; line-height: 1.6; }
 
-  .group-block.drag-over { border-color: var(--accent); opacity: 0.7; }
-  .group-block.dragging { opacity: 0.4; }
-
   /* TOAST */
   .toast {
-    position: fixed;
-    bottom: 1rem;
-    right: 1rem;
-    background: #222;
-    color: #fff;
-    padding: 0.45rem 0.9rem;
-    border-radius: 6px;
-    font-size: 0.75rem;
-    z-index: 9999;
-    opacity: 0;
-    transform: translateY(6px);
-    transition: all 0.22s;
-    pointer-events: none;
+    position: fixed; bottom: 1rem; right: 1rem;
+    background: #222; color: #fff;
+    padding: 0.45rem 0.9rem; border-radius: 6px;
+    font-size: 0.75rem; z-index: 9999;
+    opacity: 0; transform: translateY(6px);
+    transition: all 0.22s; pointer-events: none;
   }
   .toast.show { opacity: 1; transform: translateY(0); }
 
@@ -313,10 +285,8 @@
   }
   .modal-overlay.show { display: flex; }
   .modal {
-    background: var(--surface);
-    border-radius: 8px;
-    padding: 1.2rem;
-    width: 300px;
+    background: var(--surface); border-radius: 8px;
+    padding: 1.2rem; width: 300px;
     box-shadow: 0 16px 50px rgba(0,0,0,0.28);
   }
   .modal h3 { margin-bottom: 0.65rem; font-size: 0.9rem; }
@@ -356,7 +326,7 @@
     <input class="input-url" id="inUrl" type="url" placeholder="URL (https://...)" autocomplete="off">
     <button class="btn btn-primary" onclick="addTool()">+ Add Tool</button>
   </div>
-  <div class="add-hint">Press <kbd>Enter</kbd> to add · Click card to open · Hover to delete</div>
+  <div class="add-hint">Press <kbd>Enter</kbd> to add · Click card to open · Hover to delete · Drag card to move between groups</div>
 </div>
 
 <main id="main"></main>
@@ -377,27 +347,32 @@
 
 <script>
 let data = { groups: [] };
-let dragSrc = null;
+
+// drag state
+let drag = null;
+// drag.type = 'group' → reorder groups  (drag.gi)
+// drag.type = 'tool'  → move tool       (drag.groupName, drag.toolId)
 
 (function init() {
   const saved = localStorage.getItem('workhub_v1');
   if (saved) { try { data = JSON.parse(saved); } catch(e) {} }
   setTheme(localStorage.getItem('workhub_theme') || 'light');
   render();
-  ['inGroup','inName','inUrl'].forEach(id => {
-    document.getElementById(id).addEventListener('keydown', e => { if (e.key === 'Enter') addTool(); });
-  });
+  ['inGroup','inName','inUrl'].forEach(id =>
+    document.getElementById(id).addEventListener('keydown', e => { if (e.key === 'Enter') addTool(); })
+  );
 })();
 
 function save() { localStorage.setItem('workhub_v1', JSON.stringify(data)); }
 
+// ── Add ────────────────────────────────────────────────────────────────────
 function addTool() {
   const group = document.getElementById('inGroup').value.trim();
   const name  = document.getElementById('inName').value.trim();
   let   url   = document.getElementById('inUrl').value.trim();
   if (!group || !name || !url) { toast('Please fill in Group, Name, and URL'); return; }
   if (!url.startsWith('http')) url = 'https://' + url;
-  const tool = { id: Date.now() + Math.random(), name, url, icon: getFaviconUrl(url) };
+  const tool = { id: uid(), name, url, icon: faviconOf(url) };
   let grp = data.groups.find(g => g.name.toLowerCase() === group.toLowerCase());
   if (!grp) { grp = { name: group, tools: [] }; data.groups.push(grp); }
   grp.tools.push(tool);
@@ -408,15 +383,7 @@ function addTool() {
   toast(`"${name}" added to ${grp.name}`);
 }
 
-function getFaviconUrl(url) {
-  try { return `https://www.google.com/s2/favicons?domain=${new URL(url).hostname}&sz=64`; }
-  catch { return ''; }
-}
-function getDomainChar(url) {
-  try { return new URL(url).hostname.replace('www.','').charAt(0).toUpperCase(); }
-  catch { return '?'; }
-}
-
+// ── Delete ─────────────────────────────────────────────────────────────────
 function deleteTool(groupName, toolId, e) {
   e.preventDefault(); e.stopPropagation();
   const grp = data.groups.find(g => g.name === groupName);
@@ -425,7 +392,6 @@ function deleteTool(groupName, toolId, e) {
   if (!grp.tools.length) data.groups = data.groups.filter(g => g.name !== groupName);
   save(); render();
 }
-
 function deleteGroup(groupName) {
   showModal('Delete Group', `Delete "${groupName}" and all its tools?`, () => {
     data.groups = data.groups.filter(g => g.name !== groupName);
@@ -433,10 +399,11 @@ function deleteGroup(groupName) {
   });
 }
 
+// ── Render ─────────────────────────────────────────────────────────────────
 function render() {
   const main = document.getElementById('main');
   document.getElementById('groupList').innerHTML =
-    data.groups.map(g => `<option value="${escHtml(g.name)}">`).join('');
+    data.groups.map(g => `<option value="${esc(g.name)}">`).join('');
 
   if (!data.groups.length) {
     main.innerHTML = `
@@ -448,46 +415,145 @@ function render() {
     return;
   }
 
-  main.innerHTML = data.groups.map((grp, gi) => `
-    <div class="group-block" draggable="true" data-gi="${gi}"
-      ondragstart="onDragStart(event,${gi})" ondragover="onDragOver(event,${gi})"
-      ondrop="onDrop(event,${gi})" ondragleave="onDragLeave(event)" ondragend="onDragEnd()">
-      <div class="group-header">
-        <span class="drag-handle">⠿</span>
-        <span class="group-name">${escHtml(grp.name)}</span>
-        <span class="group-count">${grp.tools.length}</span>
-        <button class="group-del-btn" onclick="deleteGroup('${escAttr(grp.name)}')" title="Delete group">✕</button>
-      </div>
-      <div class="tools-grid">
-        ${grp.tools.map(t => `
-          <a class="tool-card" href="${escAttr(t.url)}" target="_blank" rel="noopener"
-            title="${escAttr(t.name)}\n${escAttr(t.url)}">
-            <button class="tool-card-del" onclick="deleteTool('${escAttr(grp.name)}',${t.id},event)">✕</button>
-            <div class="tool-icon">
-              ${t.icon
-                ? `<img src="${escAttr(t.icon)}" alt="" onerror="this.parentNode.innerHTML='<span style=\\"font-size:.9rem\\">${getDomainChar(t.url)}</span>'">`
-                : `<span style="font-size:.9rem">${getDomainChar(t.url)}</span>`}
-            </div>
-            <div class="tool-name">${escHtml(t.name)}</div>
-          </a>`).join('')}
-      </div>
-    </div>`).join('');
+  main.innerHTML = `<div class="groups-wrap" id="groupsWrap">${
+    data.groups.map((grp, gi) => `
+      <div class="group-block" id="grp-${gi}"
+        ondragover="onGroupDragOver(event,${gi})"
+        ondrop="onGroupDrop(event,${gi})"
+        ondragleave="onGroupDragLeave(event,${gi})"
+        ondragend="onDragEnd()">
+        <div class="group-header">
+          <span class="drag-handle" draggable="true"
+            ondragstart="onGroupDragStart(event,${gi})"
+            title="Drag to reorder group">⠿</span>
+          <span class="group-name">${esc(grp.name)}</span>
+          <span class="group-count">${grp.tools.length}</span>
+          <button class="group-del-btn" onclick="deleteGroup('${ea(grp.name)}')" title="Delete group">✕</button>
+        </div>
+        <div class="tools-grid" id="grid-${gi}"
+          ondragover="onGridDragOver(event,${gi})"
+          ondrop="onGridDrop(event,${gi})"
+          ondragleave="onGridDragLeave(event,${gi})">
+          ${grp.tools.map(t => `
+            <a class="tool-card" href="${ea(t.url)}" target="_blank" rel="noopener"
+              title="${ea(t.name)}\n${ea(t.url)}"
+              draggable="true"
+              ondragstart="onToolDragStart(event,'${ea(grp.name)}','${t.id}')"
+              onclick="handleCardClick(event, '${ea(t.url)}')">
+              <button class="tool-card-del" onclick="deleteTool('${ea(grp.name)}','${t.id}',event)">✕</button>
+              <div class="tool-icon">
+                ${t.icon
+                  ? `<img src="${ea(t.icon)}" alt="" onerror="this.parentNode.innerHTML='<span>${domChar(t.url)}</span>'">`
+                  : `<span>${domChar(t.url)}</span>`}
+              </div>
+              <div class="tool-name">${esc(t.name)}</div>
+            </a>`).join('')}
+        </div>
+      </div>`).join('')
+  }</div>`;
 }
 
-function onDragStart(e, gi) { dragSrc = gi; e.currentTarget.classList.add('dragging'); e.dataTransfer.effectAllowed = 'move'; }
-function onDragOver(e, gi)  { e.preventDefault(); if (gi !== dragSrc) e.currentTarget.classList.add('drag-over'); }
-function onDragLeave(e)     { e.currentTarget.classList.remove('drag-over'); }
-function onDrop(e, gi) {
-  e.preventDefault(); e.currentTarget.classList.remove('drag-over');
-  if (dragSrc === null || dragSrc === gi) return;
-  data.groups.splice(gi, 0, data.groups.splice(dragSrc, 1)[0]);
-  dragSrc = null; save(); render();
+// ── Card click — only open link if not dragging ────────────────────────────
+function handleCardClick(e, url) {
+  if (drag) { e.preventDefault(); return; }
 }
+
+// ── Drag: GROUP reorder (drag handle only) ─────────────────────────────────
+function onGroupDragStart(e, gi) {
+  drag = { type: 'group', gi };
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/plain', 'group');
+  setTimeout(() => {
+    const el = document.getElementById(`grp-${gi}`);
+    if (el) el.classList.add('dragging-group');
+  }, 0);
+}
+
+function onGroupDragOver(e, gi) {
+  if (!drag || drag.type !== 'group' || drag.gi === gi) return;
+  e.preventDefault();
+  document.getElementById(`grp-${gi}`).classList.add('drop-target');
+}
+function onGroupDragLeave(e, gi) {
+  const el = document.getElementById(`grp-${gi}`);
+  if (el && !el.contains(e.relatedTarget)) el.classList.remove('drop-target');
+}
+function onGroupDrop(e, gi) {
+  if (!drag || drag.type !== 'group' || drag.gi === gi) return;
+  e.preventDefault();
+  data.groups.splice(gi, 0, data.groups.splice(drag.gi, 1)[0]);
+  drag = null; save(); render();
+}
+
+// ── Drag: TOOL move between groups ────────────────────────────────────────
+function onToolDragStart(e, groupName, toolId) {
+  drag = { type: 'tool', groupName, toolId };
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/plain', 'tool');
+  e.stopPropagation();
+  // mark card as dragging
+  setTimeout(() => {
+    document.querySelectorAll('.tool-card').forEach(c => {
+      if (c.getAttribute('ondragstart') && c.getAttribute('ondragstart').includes(toolId)) {
+        c.classList.add('card-dragging');
+      }
+    });
+  }, 0);
+}
+
+function onGridDragOver(e, gi) {
+  if (!drag || drag.type !== 'tool') return;
+  e.preventDefault(); e.stopPropagation();
+  document.getElementById(`grid-${gi}`).classList.add('grid-drop-over');
+  document.getElementById(`grp-${gi}`).classList.add('drop-target');
+}
+function onGridDragLeave(e, gi) {
+  const grid = document.getElementById(`grid-${gi}`);
+  if (grid && !grid.contains(e.relatedTarget)) {
+    grid.classList.remove('grid-drop-over');
+    document.getElementById(`grp-${gi}`).classList.remove('drop-target');
+  }
+}
+function onGridDrop(e, gi) {
+  if (!drag || drag.type !== 'tool') return;
+  e.preventDefault(); e.stopPropagation();
+  const targetGroup = data.groups[gi];
+  if (!targetGroup) return;
+
+  // find and remove tool from source group
+  let tool = null;
+  for (const grp of data.groups) {
+    const idx = grp.tools.findIndex(t => String(t.id) === String(drag.toolId));
+    if (idx !== -1) {
+      tool = grp.tools.splice(idx, 1)[0];
+      if (!grp.tools.length) data.groups = data.groups.filter(g => g !== grp);
+      break;
+    }
+  }
+  if (!tool) { drag = null; render(); return; }
+
+  // add to target (find again after possible removal)
+  const tgt = data.groups[data.groups.indexOf(targetGroup)] || data.groups[gi];
+  if (tgt) tgt.tools.push(tool);
+
+  drag = null; save(); render();
+  toast(`"${tool.name}" moved to ${targetGroup.name}`);
+}
+
 function onDragEnd() {
-  document.querySelectorAll('.group-block').forEach(el => el.classList.remove('dragging','drag-over'));
-  dragSrc = null;
+  drag = null;
+  document.querySelectorAll('.group-block').forEach(el =>
+    el.classList.remove('drop-target','dragging-group')
+  );
+  document.querySelectorAll('.tools-grid').forEach(el =>
+    el.classList.remove('grid-drop-over')
+  );
+  document.querySelectorAll('.tool-card').forEach(el =>
+    el.classList.remove('card-dragging')
+  );
 }
 
+// ── Theme ──────────────────────────────────────────────────────────────────
 function setTheme(t) {
   document.documentElement.setAttribute('data-theme', t);
   localStorage.setItem('workhub_theme', t);
@@ -497,9 +563,10 @@ function toggleTheme() {
   setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
 }
 
+// ── Export / Import ────────────────────────────────────────────────────────
 function exportData() {
   const a = Object.assign(document.createElement('a'), {
-    href: URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'})),
+    href: URL.createObjectURL(new Blob([JSON.stringify(data,null,2)], {type:'application/json'})),
     download: 'workhub-backup.json'
   });
   a.click(); toast('Exported workhub-backup.json');
@@ -519,13 +586,13 @@ function importData(e) {
   };
   r.readAsText(file); e.target.value = '';
 }
-
 function confirmReset() {
   showModal('Reset All Data', 'Delete ALL groups and tools? Cannot be undone.', () => {
     data = { groups: [] }; save(); render(); closeModal(); toast('All data cleared');
   });
 }
 
+// ── Modal ──────────────────────────────────────────────────────────────────
 function showModal(title, msg, onOk) {
   document.getElementById('modalTitle').textContent = title;
   document.getElementById('modalMsg').textContent = msg;
@@ -533,18 +600,33 @@ function showModal(title, msg, onOk) {
   document.getElementById('modalOverlay').classList.add('show');
 }
 function closeModal() { document.getElementById('modalOverlay').classList.remove('show'); }
-document.getElementById('modalOverlay').addEventListener('click', e => { if (e.target===e.currentTarget) closeModal(); });
+document.getElementById('modalOverlay').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeModal();
+});
 
+// ── Toast ──────────────────────────────────────────────────────────────────
 let toastTimer;
 function toast(msg) {
   const el = document.getElementById('toast');
   el.textContent = msg; el.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => el.classList.remove('show'), 2400);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2500);
 }
 
-function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function escAttr(s) { return String(s).replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+// ── Helpers ────────────────────────────────────────────────────────────────
+function uid() { return Date.now() + '_' + Math.random().toString(36).slice(2); }
+function faviconOf(url) {
+  try { return `https://www.google.com/s2/favicons?domain=${new URL(url).hostname}&sz=64`; }
+  catch { return ''; }
+}
+function domChar(url) {
+  try { return new URL(url).hostname.replace('www.','').charAt(0).toUpperCase(); }
+  catch { return '?'; }
+}
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function ea(s) { return String(s).replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
 </script>
 </body>
 </html>
